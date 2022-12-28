@@ -5,3 +5,22 @@
 html {
 	@apply text-white;
 }
+
+button {
+	@apply bg-accent-2-color w-full rounded-lg border-2 border-accent-2-color-lighter hover:bg-accent-2-color-lighter 
+		uppercase p-2 font-light text-sm m-4 focus:outline-none;
+}
+
+input {
+	@apply bg-dark-color rounded-lg border-2 border-accent-color hover:bg-dark-color-lighter font-mono text-xs p-2 
+		disabled:bg-dark-color-lighter disabled:border-dark-color-more-lighter focus:border-accent-color-lighter
+		focus:outline-none focus:bg-dark-color-lighter mb-4;
+}
+textarea {
+	@apply bg-dark-color rounded-lg border-2 border-accent-color hover:bg-dark-color-lighter font-mono text-xs p-2 
+		disabled:bg-dark-color-lighter disabled:border-dark-color-more-lighter focus:border-accent-color-lighter
+		focus:outline-none focus:bg-dark-color-lighter;
+}
+label {
+	@apply uppercase font-light text-sm pb-1;
+}

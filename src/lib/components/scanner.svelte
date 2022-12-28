@@ -51,9 +51,9 @@
 
 <div class="flex flex-col justify-center items-center gap-5">
     {#if scanning}
-        <button class="bg-accent-2-color w-28 h-14 rounded-lg border border-accent-2-color-lighter hover:bg-accent-2-color-lighter uppercase p-2 font-light text-sm m-4" on:click={stop}>stop</button>
+        <button class="w-28 h-14" on:click={stop}>stop</button>
     {:else}
-        <button class="bg-accent-2-color w-28 h-14 rounded-lg border border-accent-2-color-lighter hover:bg-accent-2-color-lighter uppercase p-2 font-light text-sm m-4" on:click={start}>start</button>
+        <button class="w-28 h-14" on:click={start}>start</button>
     {/if}
     <reader id="reader" class="w-full max-w-xl bg-black"/>
 </div>
