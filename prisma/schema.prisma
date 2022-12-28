@@ -9,3 +9,13 @@ datasource db {
     provider = "postgresql"
     url      = env("DATABASE_URL")
 }
+
+model Device {
+    Id           Int      @id @default(autoincrement())
+    CreatedAt    DateTime @default(now())
+    UpdatedAt    DateTime @updatedAt
+    SerialNumber String   @unique
+    Status       String   @default("InQueue")
+    User         String?
+    Note         String?
+}
