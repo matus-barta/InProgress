@@ -24,7 +24,7 @@
     {#await promise}
         <h2>please wait...</h2>
     {:then data} 
-        <DeviceForm serialNumber={resData.SerialNumber}/>
+        <DeviceForm serialNumber={resData.Id}/>
     {/await}
 {/if}
 
