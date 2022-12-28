@@ -1,7 +1,10 @@
 <script lang="ts">
-	import { goto } from "$app/navigation";
 	import type { CheckSerialNumber, ReadDeviceSchema, UpdateDevicesSchema } from "$lib/schemas/device.schema";
+    import { createEventDispatcher } from 'svelte';
     
+    const dispatch = createEventDispatcher();
+    const goBack = () => dispatch('goBack');
+
     export let data: CheckSerialNumber;
     const empty = data.Id == 0;
 
@@ -80,17 +83,17 @@
                         Update
                     {/if}
                     </button>
-                    <button on:click|preventDefault={()=>{goto('/dashboard/scanner');}}>
+                    <button on:click|preventDefault={goBack}>
                         Cancel
                     </button>
                 </div>
             </form>
         {:else}
-            <div class="flex flex-row items-center justify-center w-full">
+            <div class="flex flex-col items-center justify-center w-full">
                 <h2>
                     {#if finalResult.ok}Success!{:else}Fail 🙁{/if}
                 </h2>
-                <button on:click|preventDefault={()=>{goto('/dashboard/scanner');}}>
+                <button class="max-w-sm" on:click|preventDefault={goBack}>
                     Go Scan
                 </button>
             </div>
