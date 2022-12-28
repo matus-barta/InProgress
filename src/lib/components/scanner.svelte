@@ -51,9 +51,9 @@
 
 <div class="flex flex-col justify-center items-center gap-5">
     {#if scanning}
-        <button class="w-28 h-14" on:click={stop}>stop</button>
+        <button class="max-w-sm" on:click={stop}>stop</button>
     {:else}
-        <button class="w-28 h-14" on:click={start}>start</button>
+        <button class="max-w-sm" on:click={start}>start</button>
     {/if}
     <reader id="reader" class="w-full max-w-xl bg-black"/>
 </div>
