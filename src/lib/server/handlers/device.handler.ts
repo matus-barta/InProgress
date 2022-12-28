@@ -92,3 +92,21 @@ export async function updateDevice(deviceData: UpdateDevicesSchema): Promise<boo
 
 	return result != null;
 }
+
+export async function getListOfDeviceId(status: string) {
+	const result = await prisma.device.findMany({
+		where: {
+			Status: status
+		},
+		select: {
+			Id: true
+		}
+	});
+
+	const list: number[] = new Array<number>();
+	result.forEach((element) => {
+		list.push(element.Id);
+	});
+
+	return list;
+}

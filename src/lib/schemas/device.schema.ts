@@ -1,4 +1,4 @@
-import { date, nullable, number, object, string } from 'zod';
+import { date, number, object, string } from 'zod';
 import type { TypeOf } from 'zod';
 
 export const checkSerialNumberSchema = object({
