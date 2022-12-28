@@ -9,7 +9,7 @@
             <div class="h-10 w-10 py-2 stroke-white stroke-[1.5]">
                 <slot/>
             </div>
-            <div class="py-5 pl-1 font-light text-sm text-white uppercase">
+            <div class="py-5 pl-1 font-light text-sm text-white uppercase hidden md:inline-flex">
                 {name}
             </div>
         </div>

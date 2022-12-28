@@ -7,7 +7,7 @@
 </script>
 
 <div class="flex flex-col h-screen">
-    <div class="flex flex-row justify-between h-16 w-full bg-accent-color">
+    <div class="flex flex-row justify-between h-16 w-full bg-accent-color shadow-lg">
         <div class="flex flex-row">
             <Button link="/dashboard" name="home">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="inherit" stroke="inherit">
@@ -39,7 +39,7 @@
             </svg>
         </Button>
     </div>   
-  <div class="flex flex-col w-full bg-darker-color h-full">
+  <div class="flex flex-col w-full bg-darker-color h-full pt-4">
       <slot />
   </div>
 </div>
