@@ -3,7 +3,7 @@ import log from '$lib/server/utils/logger';
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from '../$types';
 
-export const GET = (async ({ event }) => {
+export const GET = (async (event) => {
 	log.info(`GET Req: /api/serialnumber/${event.params.slug}`);
 
 	if (event.params.slug == '') {

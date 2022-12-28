@@ -3,6 +3,7 @@
 </svelte:head>
 
 <script lang="ts">
+    export const ssr = true; 
     import Scanner from '$lib/components/scanner.svelte';
     import DeviceForm from '$lib/components/deviceForm.svelte';
     import type { CheckSerialNumber } from '$lib/schemas/device.schema';
@@ -24,7 +25,7 @@
     {#await promise}
         <h2>please wait...</h2>
     {:then data} 
-        <DeviceForm serialNumber={resData.Id}/>
+        <DeviceForm data={resData}/>
     {/await}
 {/if}
 
