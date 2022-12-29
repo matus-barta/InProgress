@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { CheckSerialNumber, ReadDeviceSchema, UpdateDevicesSchema } from "$lib/schemas/device.schema";
     import { createEventDispatcher } from 'svelte';
+    import Loading from '$lib/components/loading.svelte';
     
     const dispatch = createEventDispatcher();
     const goBack = () => dispatch('goBack');
@@ -51,7 +52,7 @@
 
 <div class="flex flex-col justify-center items-center gap-5 w-full p-5">
     {#await promise}
-        <h2>please wait...</h2>
+        <Loading/>
     {:then data} 
         {#if hideResult}
             <form on:submit|preventDefault={processData} class="flex flex-col w-full max-w-xl">

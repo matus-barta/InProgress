@@ -1,9 +1,15 @@
 <script lang="ts">
 	import type { ReadDeviceSchema } from "$lib/schemas/device.schema";
+    import Loading from '$lib/components/loading.svelte';
     import Time from '$lib/components/time.svelte'
-	import { onMount } from "svelte";
+	import { createEventDispatcher, onMount } from "svelte";
 
-    export let id:number;
+    const options = ['InQueue','InProgress','Done'];
+
+    export let id: number;
+
+    const dispatch = createEventDispatcher();
+    const reloadData = () => dispatch('reloadData');
 
     let device: ReadDeviceSchema;
     let promise: Promise<void | Response>;
@@ -13,27 +19,57 @@
             device = data;
         }); 
     });
+
+
+    function statusChanged(){
+        try{
+            promise = fetch(`/api/device`,{
+                method: 'POST',
+                body: JSON.stringify(device)
+                }).then((res) => {
+                    console.log(res.statusText);
+                    reloadData();
+                });
+        }catch(e){
+            console.log(e);
+        }
+    }
 </script>
 
 <style>
     p{
         @apply font-light;
     }
+    select{
+        @apply bg-transparent rounded-md p-1 text-xs text-dark-color-2-even-more-lighter outline-none w-fit h-fit m-0 border-none;
+    }
+    .time{
+        @apply text-xs text-white pr-2 pl-1 mt-2 rounded-md max-w-fit;
+    }
 </style>
 
-<div class="flex flex-col bg-dark-color-more-lighter hover:bg-dark-color-even-more-lighter rounded-xl mx-1 mb-4 py-2 px-2 shadow-lg">
+<div class="flex flex-col bg-dark-color-more-lighter rounded-xl mx-1 mb-4 py-2 px-2 shadow-lg">
     {#await promise}
-        <h2>please wait..</h2>
+        <Loading/>
     {:then data}
         {#if device != undefined || device != null}
-            <p class="text-accent-color text-base">{device.SerialNumber}</p>
-            <p class="text-sm">{device.User}</p>
-            <div class="text-sm rounded bg-accent-2-color-lighter w-full p-1 h-20">{device.Note}</div>
+            <div class="flex flex-row justify-between">
+                <p class="text-accent-color tracking-tighter pl-1 text-base">{device.SerialNumber}</p>
+                <select class="hover:bg-dark-color-lighter" bind:value={device.Status} on:change={statusChanged}>
+                    {#each options as option}
+                        <option value={option}>
+                            {option}
+                        </option>
+                    {/each}
+                </select>
+            </div>
+            <p class="text-sm pl-1">{device.User}</p>
+            <div class="text-xs tracking-normal rounded border border-dark-color-even-more-lighter w-full p-1 h-20">{device.Note}</div>
             <div class="flex flex-row gap-2">
-                <div class="pr-2 pl-1 mt-2  rounded-md max-w-fit bg-green-600 text-xs text-white">
+                <div class="time bg-green-600">
                     <Time time={device.CreatedAt}/>
                 </div>
-                <div class="pr-2 pl-1 mt-2  rounded-md max-w-fit bg-yellow-500 text-xs text-white">
+                <div class="time bg-yellow-600">
                     <Time time={device.UpdatedAt}/>
                 </div>
             </div>
