@@ -11,7 +11,9 @@ module.exports = {
         'darker-color': '#1e1e1e',
         'dark-color': '#252526',
         'dark-color-lighter': '#333333',
-        'dark-color-more-lighter': '#3c3c3c'
+        'dark-color-more-lighter': '#3c3c3c',
+        'dark-color-even-more-lighter': '#4F4F4F',
+        'dark-color-2-even-more-lighter': '#858585'
       }
     },
   },
