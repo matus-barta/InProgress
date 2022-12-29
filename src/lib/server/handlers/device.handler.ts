@@ -46,6 +46,9 @@ export async function getDeviceData(id: number): Promise<ReadDeviceSchema | null
 
 export async function updateDevice(deviceData: UpdateDevicesSchema): Promise<boolean> {
 	let result: Device;
+	if (deviceData.Task != '' && deviceData.Task?.charAt(0) != '#')
+		deviceData.Task = `#${deviceData.Task}`;
+
 	try {
 		if (
 			deviceData.Status == 'InQueue' ||
