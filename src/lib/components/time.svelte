@@ -5,7 +5,7 @@
     export let time: Date;
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-    const timeString = dayjs(time).format('D. MMM H:m');
+    const timeString = dayjs(time).format('D. MMM H:mm');
 
 </script>
 
