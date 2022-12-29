@@ -3,13 +3,13 @@
     export let name:string;
 </script>
 
-<div class="px-4 hover:bg-accent-color-lighter">
+<div class="px-4 hover:bg-accent-color-lighter stroke-white text-white">
     <a href="{link}">
         <div class="flex flex-row">
-            <div class="h-10 w-10 py-2 stroke-white stroke-[1.5]">
+            <div class="h-10 w-10 py-2 stroke-inherit stroke-[1.5]">
                 <slot/>
             </div>
-            <div class="py-5 pl-1 font-light text-sm text-white uppercase hidden md:inline-flex">
+            <div class="py-5 pl-1 font-light text-sm text-inherit uppercase hidden md:inline-flex">
                 {name}
             </div>
         </div>

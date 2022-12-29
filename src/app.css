@@ -3,16 +3,16 @@
 @tailwind utilities;
 
 html {
-	@apply text-white tracking-tighter min-w-[350];
+	@apply text-white min-w-[350];
 }
 
 button {
-	@apply bg-accent-2-color w-full rounded-lg border-2 border-accent-2-color-lighter hover:bg-accent-2-color-lighter 
+	@apply bg-accent-2-color w-full tracking-tighter rounded-lg border-2 border-accent-2-color-lighter hover:bg-accent-2-color-lighter 
 		uppercase p-2 font-light text-sm m-4 focus:outline-none shadow-lg;
 }
 
 input {
-	@apply bg-dark-color rounded-lg border-2 border-accent-color hover:bg-dark-color-lighter font-mono text-xs p-2 
+	@apply bg-dark-color tracking-tighter rounded-lg border-2 border-accent-color hover:bg-dark-color-lighter font-mono text-xs p-2 
 		disabled:bg-dark-color-lighter disabled:border-dark-color-more-lighter focus:border-accent-color-lighter
 		focus:outline-none focus:bg-dark-color-lighter mb-4;
 }
@@ -22,5 +22,5 @@ textarea {
 		focus:outline-none focus:bg-dark-color-lighter;
 }
 label {
-	@apply uppercase font-light text-sm pb-1;
+	@apply uppercase tracking-tighter font-light text-sm pb-1;
 }
