@@ -14,8 +14,10 @@ export const readDeviceSchema = object({
 	UpdatedAt: date({ required_error: 'UpdatedAt is missing' }),
 	SerialNumber: string({ required_error: 'SerialNumber is missing' }),
 	Status: string({ required_error: 'Status is missing' }),
-	User: string().nullable(),
-	Note: string().nullable()
+	User: string().nullable().optional(),
+	Note: string().nullable().optional(),
+	Company: string().nullable().optional(),
+	Task: string().nullable().optional()
 });
 
 export type ReadDeviceSchema = TypeOf<typeof readDeviceSchema>;
@@ -24,7 +26,9 @@ export const updateDevicesSchema = object({
 	SerialNumber: string({ required_error: 'SerialNumber is missing' }),
 	Status: string().nullable().optional(),
 	User: string().nullable().optional(),
-	Note: string().nullable().optional()
+	Note: string().nullable().optional(),
+	Company: string().nullable().optional(),
+	Task: string().nullable().optional()
 });
 
 export type UpdateDevicesSchema = TypeOf<typeof updateDevicesSchema>;

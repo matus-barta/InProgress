@@ -2,6 +2,7 @@
 	import type { CheckSerialNumber, ReadDeviceSchema, UpdateDevicesSchema } from "$lib/schemas/device.schema";
     import { createEventDispatcher } from 'svelte';
     import Loading from '$lib/components/loading.svelte';
+    import { options } from '$lib/Options';
     
     const dispatch = createEventDispatcher();
     const goBack = () => dispatch('goBack');
@@ -16,7 +17,9 @@
                 SerialNumber: data.SerialNumber,
                 Status: 'InQueue',
                 User: '',
-                Note: ''
+                Note: '',
+                Company: '',
+                Task: ''
             }
 
     let promise: Promise<void | Response>;
@@ -29,7 +32,9 @@
                 SerialNumber: resData.SerialNumber,
                 Status: resData.Status,
                 User: resData.User,
-                Note: resData.Note
+                Note: resData.Note,
+                Company: resData.Company,
+                Task: resData.Task
             }
         });
     }
@@ -60,10 +65,22 @@
                 <input type="text" id="sn" name="sn" bind:value={formData.SerialNumber} disabled={!empty}>
 
                 <label for="status">Status</label>
-                <input type="text" id="status" name="status" value={formData.Status} disabled>
+                <select id="status" name="status" bind:value={formData.Status} disabled={empty}>
+                    {#each options as option}
+                        <option value={option}>
+                            {option}
+                        </option>
+                    {/each}
+                </select>
 
                 <label for="user">User</label>
                 <input type="text" id="user" name="user" bind:value={formData.User}>
+
+                <label for="company">Company</label>
+                <input type="text" id="company" name="company" bind:value={formData.Company}>
+
+                <label for="task">task</label>
+                <input type="text" id="task" name="task" bind:value={formData.Task}>
 
                 {#if !empty}
                     <label for="createdAt">Created At</label>
@@ -95,7 +112,7 @@
                     {#if finalResult.ok}Success!{:else}Fail 🙁{/if}
                 </h2>
                 <button class="max-w-sm" on:click|preventDefault={goBack}>
-                    Go Scan
+                    Go Back
                 </button>
             </div>
         {/if}

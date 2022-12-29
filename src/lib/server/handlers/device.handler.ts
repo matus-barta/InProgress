@@ -35,7 +35,9 @@ export async function getDeviceData(id: number): Promise<ReadDeviceSchema | null
 			SerialNumber: true,
 			Status: true,
 			User: true,
-			Note: true
+			Note: true,
+			Company: true,
+			Task: true
 		}
 	});
 
@@ -59,12 +61,16 @@ export async function updateDevice(deviceData: UpdateDevicesSchema): Promise<boo
 					SerialNumber: deviceData.SerialNumber,
 					Status: deviceData.Status,
 					User: deviceData.User,
-					Note: deviceData.Note
+					Note: deviceData.Note,
+					Company: deviceData.Company,
+					Task: deviceData.Task
 				},
 				update: {
 					Status: deviceData.Status,
 					User: deviceData.User,
-					Note: deviceData.Note
+					Note: deviceData.Note,
+					Company: deviceData.Company,
+					Task: deviceData.Task
 				}
 			});
 		} else {
@@ -76,12 +82,16 @@ export async function updateDevice(deviceData: UpdateDevicesSchema): Promise<boo
 					SerialNumber: deviceData.SerialNumber,
 					Status: 'InQueue',
 					User: deviceData.User,
-					Note: deviceData.Note
+					Note: deviceData.Note,
+					Company: deviceData.Company,
+					Task: deviceData.Task
 				},
 				update: {
 					Status: 'InQueue',
 					User: deviceData.User,
-					Note: deviceData.Note
+					Note: deviceData.Note,
+					Company: deviceData.Company,
+					Task: deviceData.Task
 				}
 			});
 		}

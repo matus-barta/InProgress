@@ -3,8 +3,7 @@
     import Loading from '$lib/components/loading.svelte';
     import Time from '$lib/components/time.svelte'
 	import { createEventDispatcher, onMount } from "svelte";
-
-    const options = ['InQueue','InProgress','Done'];
+    import { options } from '$lib/Options';
 
     export let id: number;
 
@@ -41,7 +40,7 @@
         @apply font-light;
     }
     select{
-        @apply bg-transparent rounded-md p-1 text-xs text-dark-color-2-even-more-lighter outline-none w-fit h-fit m-0 border-none;
+        @apply bg-transparent w-fit rounded-md p-1 pr-2 text-xs text-dark-color-2-even-more-lighter outline-none h-fit m-0 border-none;
     }
     .time{
         @apply text-xs text-white pr-2 pl-1 mt-2 rounded-md max-w-fit;
@@ -53,8 +52,8 @@
         <Loading/>
     {:then data}
         {#if device != undefined || device != null}
-            <div class="flex flex-row justify-between">
-                <p class="text-accent-color tracking-tighter pl-1 text-base">{device.SerialNumber}</p>
+            <div class="flex flex-row justify-between items-center">
+                <p class="text-accent-color tracking-tighter pl-1 text-lg">{device.SerialNumber}</p>
                 <select class="hover:bg-dark-color-lighter" bind:value={device.Status} on:change={statusChanged}>
                     {#each options as option}
                         <option value={option}>
@@ -64,7 +63,9 @@
                 </select>
             </div>
             <p class="text-sm pl-1">{device.User}</p>
-            <div class="text-xs tracking-normal rounded border border-dark-color-even-more-lighter w-full p-1 h-20">{device.Note}</div>
+            <p class="text-sm pl-1">{device.Company}</p>
+            <p class="text-sm pl-1">{device.Task}</p>
+            <div class="text-xs font-mono tracking-normal rounded border border-dark-color-even-more-lighter w-full p-1 mt-1 h-20 overflow-y-scroll">{device.Note}</div>
             <div class="flex flex-row gap-2">
                 <div class="time bg-green-600">
                     <Time time={device.CreatedAt}/>
