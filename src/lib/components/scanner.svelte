@@ -49,11 +49,11 @@
     }
 </script>
 
-<div class="flex flex-col justify-center items-center gap-5">
+<div class="flex flex-col w-full items-center gap-5">
+    <reader id="reader" class="w-full max-w-xl bg-black"/>
     {#if scanning}
         <button class="max-w-sm" on:click={stop}>stop</button>
     {:else}
         <button class="max-w-sm" on:click={start}>start</button>
     {/if}
-    <reader id="reader" class="w-full max-w-xl bg-black"/>
 </div>

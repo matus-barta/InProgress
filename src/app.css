@@ -6,9 +6,19 @@ html {
 	@apply text-white min-w-[350];
 }
 
+body {
+	@apply bg-darker-color;
+}
+
 button {
 	@apply bg-accent-2-color w-full tracking-tighter rounded-lg border-2 border-accent-2-color-lighter hover:bg-accent-2-color-lighter 
 		uppercase p-2 font-light text-sm m-4 focus:outline-none shadow-lg;
+}
+
+select {
+	@apply bg-dark-color tracking-tighter rounded-lg border-2 border-accent-color hover:bg-dark-color-lighter font-mono text-xs p-2 
+		disabled:bg-dark-color-lighter disabled:border-dark-color-more-lighter focus:border-accent-color-lighter
+		focus:outline-none focus:bg-dark-color-lighter mb-4;
 }
 
 input {
