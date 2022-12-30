@@ -12,15 +12,14 @@
 
     console.log(JSON.stringify(data));
 
-    let formData: UpdateDevicesSchema;
-    if (empty) formData = {
+    export let formData: UpdateDevicesSchema = {
                 SerialNumber: data.SerialNumber,
                 Status: 'InQueue',
                 User: '',
                 Note: '',
                 Company: '',
                 Task: ''
-            }
+            };
 
     let promise: Promise<void | Response>;
     let resData: ReadDeviceSchema;
@@ -93,7 +92,7 @@
                 <label for="note">Note</label>
                 <textarea id="note" name="note" rows="10" cols="30" bind:value={formData.Note}/>
 
-                <div class="flex flex-row w-full justify-evenly">
+                <div class="flex flex-row w-full gap-5">
                     <button>
                     {#if empty}
                         Create
