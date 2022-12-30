@@ -24,7 +24,7 @@
     {#await promise}
     <Loading/>
     {:then data}
-        {#if idsList != undefined || idsList != null}
+        {#if idsList != undefined && idsList != null}
             {#each idsList as id_num}
                 <Device id={id_num} on:reloadData={reloadData}/>
             {/each} 

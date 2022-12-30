@@ -51,7 +51,7 @@
     {#await promise}
         <Loading/>
     {:then data}
-        {#if device != undefined || device != null}
+        {#if device != undefined && device != null}
             <div class="flex flex-row justify-between items-center">
                 <p class="text-accent-color tracking-tighter pl-1 text-lg">{device.SerialNumber}</p>
                 <select class="hover:bg-dark-color-lighter" bind:value={device.Status} on:change={statusChanged}>
