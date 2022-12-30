@@ -1,6 +1,7 @@
 <script lang="ts">
-	import type { CheckSerialNumber, ReadDeviceSchema } from "$lib/schemas/device.schema";
+    import type { CheckSerialNumber, ReadDeviceSchema } from "$lib/schemas/device.schema";
 	import { onMount } from "svelte";
+	import Device from "./device.svelte";
 	import DeviceForm from "./deviceForm.svelte";
     import Loading from "./loading.svelte";
 
@@ -30,12 +31,7 @@
             <Loading/>
         {:then data}
             {#if device != undefined && device != null}
-                <p class="text-sm pl-1">{device.SerialNumber}</p>
-                <p class="text-sm pl-1">{device.Status}</p>
-                <p class="text-sm pl-1">{device.User}</p>
-                <p class="text-sm pl-1">{device.Company}</p>
-                <p class="text-sm pl-1">{device.Task}</p>
-                <div class="text-xs font-mono tracking-normal rounded border border-dark-color-even-more-lighter w-full p-1 mt-1 h-10 overflow-y-scroll">{device.Note}</div>
+                <Device device={device}/>
                 <button on:click={() => { editor = true; }}>Edit</button>
             {/if}
         {/await}

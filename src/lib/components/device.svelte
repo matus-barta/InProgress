@@ -5,20 +5,32 @@
 	import { createEventDispatcher, onMount } from "svelte";
     import { options } from '$lib/Options';
 
-    export let id: number;
-
     const dispatch = createEventDispatcher();
     const reloadData = () => dispatch('reloadData');
 
-    let device: ReadDeviceSchema;
+    export let id: number = 0;
+    export let device: ReadDeviceSchema = {
+                Id: 0,
+                SerialNumber: '',
+                Status: 'InQueue',
+                CreatedAt: new Date(),
+                UpdatedAt: new Date(),
+                User: '',
+                Note: '',
+                Company: '',
+                Task: ''
+            };
+
     let promise: Promise<void | Response>;
-
+    const isSearchResult = id==0;
+    
     onMount(()=>{
-        promise = fetch(`/api/device/${id}`).then((res)=> res.json()).then((data)=>{
-            device = data;
-        }); 
+        if(!isSearchResult){
+            promise = fetch(`/api/device/${id}`).then((res)=> res.json()).then((data)=>{
+                device = data;
+            }); 
+        }
     });
-
 
     function statusChanged(){
         try{
@@ -47,20 +59,22 @@
     }
 </style>
 
-<div class="flex flex-col bg-dark-color-more-lighter rounded-xl mx-1 mb-4 py-2 px-2 shadow-lg">
+<div class="flex flex-col bg-dark-color-more-lighter rounded-xl mb-4 py-2 px-2 shadow-lg">
     {#await promise}
         <Loading/>
     {:then data}
         {#if device != undefined && device != null}
             <div class="flex flex-row justify-between items-center">
                 <p class="text-accent-color tracking-tighter pl-1 text-lg">{device.SerialNumber}</p>
-                <select class="hover:bg-dark-color-lighter" bind:value={device.Status} on:change={statusChanged}>
-                    {#each options as option}
-                        <option value={option}>
-                            {option}
-                        </option>
-                    {/each}
-                </select>
+                {#if !isSearchResult}
+                    <select class="hover:bg-dark-color-lighter" bind:value={device.Status} on:change={statusChanged}>
+                        {#each options as option}
+                            <option value={option}>
+                                {option}
+                            </option>
+                        {/each}
+                    </select>
+                {/if}
             </div>
             <p class="text-sm pl-1">{device.User}</p>
             <p class="text-sm pl-1">{device.Company}</p>

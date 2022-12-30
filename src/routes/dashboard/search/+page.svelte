@@ -21,7 +21,8 @@
 </script>
 
 <div class="flex flex-col w-full py-12 max-w-xl p-5">
-    <input placeholder="type to search" bind:value={query} on:keyup={fetchQuery}/>
+    <label for="search">Search</label>
+    <input id="search" name="search" placeholder="type to search" bind:value={query} on:keyup={fetchQuery}/>
 
     {#if result != undefined}
         {#await promise}

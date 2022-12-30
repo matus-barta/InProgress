@@ -19,7 +19,7 @@
     }
 </script>
 
-<div class="flex flex-col h-fit bg-dark-color-lighter px-2 rounded-lg shadow-lg w-80 xl:w-96">
+<div class="flex flex-col h-fit bg-dark-color-lighter px-3 rounded-lg shadow-lg w-80 xl:w-96">
     <p class="text-lg font-semibold tracking-tight text-accent-2-color-lighter p-0 pt-1 m-0 mb-3 border-b border-accent-color">{name}</p>
     {#await promise}
     <Loading/>
