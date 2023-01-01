@@ -2,7 +2,7 @@
 	import type { CheckSerialNumber, ReadDeviceSchema, UpdateDevicesSchema } from "$lib/schemas/device.schema";
     import { createEventDispatcher } from 'svelte';
     import Loading from '$lib/components/loading.svelte';
-    import { options } from '$lib/Options';
+    import { options } from '$lib/options';
     
     const dispatch = createEventDispatcher();
     const goBack = () => dispatch('goBack');

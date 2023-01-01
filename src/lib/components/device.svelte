@@ -3,7 +3,7 @@
     import Loading from '$lib/components/loading.svelte';
     import Time from '$lib/components/time.svelte'
 	import { createEventDispatcher, onMount } from "svelte";
-    import { options } from '$lib/Options';
+    import { options } from '$lib/options';
 
     const dispatch = createEventDispatcher();
     const reloadData = () => dispatch('reloadData');

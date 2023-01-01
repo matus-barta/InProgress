@@ -4,7 +4,7 @@
 
 <script lang="ts">
     import Tab from "$lib/components/tab.svelte"
-    import { options } from "$lib/Options";
+    import { options } from "$lib/options";
 
     let unique = {};
 
