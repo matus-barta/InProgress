@@ -1,14 +1,16 @@
 {
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
+		"module": "ESNext", // required!, needs to be ES6, ES2015, ES2020, ESNext, if not set errors with "ReferenceError: exports is not defined"
+		"moduleResolution": "Node", // required!
+		"esModuleInterop": true, // required!
+		"strict": true, // optional but recommended
 		"allowJs": true,
 		"checkJs": true,
-		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"sourceMap": true,
-		"strict": true
 	}
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
 	//
