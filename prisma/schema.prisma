@@ -22,3 +22,15 @@ model Device {
     Task         String?
     Note         String?
 }
+
+model User {
+    Id          Int      @id @default(autoincrement())
+    CreatedAt   DateTime @default(now())
+    UpdatedAt   DateTime @updatedAt
+    Name        String?
+    Username    String   @unique
+    AccessToken String?
+    SessionId   String?  @unique
+    Allowed     Boolean? @default(false)
+    Admin       Boolean  @default(false)
+}
