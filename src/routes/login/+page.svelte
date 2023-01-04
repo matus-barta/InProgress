@@ -1,10 +1,18 @@
 <script lang="ts">
-	import { redirect } from "@sveltejs/kit";
+	import { goto } from "$app/navigation";
+	import { onMount } from "svelte";
   import "../../app.css";
 
-  const tenantId = '9d472fb9-c94f-4904-affe-efff0d19c936';
+  import type { PageData } from './$types';
+  export let data: PageData;
 
-	const loginUrl = `https://login.microsoftonline.com/${tenantId}/oauthv2.0/authorize`;
+  onMount(()=>{
+    console.log(`Redirect: ${data.redirect}`)
+    if(data.redirect.startsWith('/error') || data.redirect.startsWith('/dashboard')) {
+      console.log(`Redirect: ${data.redirect}`)
+      goto(data.redirect);
+    }
+  });
 </script>
 
 <svelte:head>
@@ -19,9 +27,9 @@
   }
 </style>
 
-<div class="flex flex-col items-center w-screen h-screen px-5 pt-10 gap-10 md:pt-20">
+<div data-sveltekit-preload-data="off" class="flex flex-col items-center w-screen h-screen px-5 pt-10 gap-10 md:pt-20">
   <img src="logo.svg" alt="logo" class="w-80"/>
-  <a href={loginUrl} class="max-w-lg button">
+  <a href={data.redirect} class="max-w-lg button">
     <div class="flex flex-row justify-center items-center w-full h-full gap-2 hover:bg-accent-2-color-lighter ">
         <p>Please login with Microsoft account</p>
         <img class="w-4" src="ms-logo.svg" alt="Microsoft logo"/>
