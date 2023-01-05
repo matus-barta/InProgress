@@ -17,12 +17,9 @@ export const handle = (async ({ event, resolve }) => {
 				log.info(where, 'sessionid cookie exists but not in db');
 				throw redirect(307, '/login');
 			} else {
-				event.locals.user = userInfo;
+				event.locals.user = omit(userInfo, 'AccessToken');
 				if (!(await updateAccessDate(userInfo))) log.warn(where, `Failed to update access Date`);
-				log.info(
-					where,
-					`known sessionid ${JSON.stringify(omit(event.locals.user, 'AccessToken', 'Image'))}`
-				);
+				log.info(where, `known sessionid ${JSON.stringify(omit(event.locals.user, 'Image'))}`);
 			}
 		}
 	}
