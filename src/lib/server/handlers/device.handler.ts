@@ -1,3 +1,4 @@
+import { options } from '$lib/options';
 import type {
 	CheckSerialNumber,
 	ReadDeviceSchema,
@@ -50,56 +51,38 @@ export async function updateDevice(deviceData: UpdateDevicesSchema): Promise<boo
 		deviceData.Task = `#${deviceData.Task}`;
 
 	try {
-		if (
-			deviceData.Status == 'InQueue' ||
-			deviceData.Status == 'InProgress' ||
-			deviceData.Status == 'Done'
-		) {
-			//compiler wasn't happy, so this madness bellow is the result (and I don't wanna to spend more time on this)
-			result = await prisma.device.upsert({
-				where: {
-					SerialNumber: deviceData.SerialNumber
-				},
-				create: {
-					SerialNumber: deviceData.SerialNumber,
-					Status: deviceData.Status,
-					User: deviceData.User,
-					Note: deviceData.Note,
-					Company: deviceData.Company,
-					Task: deviceData.Task
-				},
-				update: {
-					Status: deviceData.Status,
-					User: deviceData.User,
-					Note: deviceData.Note,
-					Company: deviceData.Company,
-					Task: deviceData.Task
-				}
-			});
-		} else {
-			result = await prisma.device.upsert({
-				where: {
-					SerialNumber: deviceData.SerialNumber
-				},
-				create: {
-					SerialNumber: deviceData.SerialNumber,
-					Status: 'InQueue',
-					User: deviceData.User,
-					Note: deviceData.Note,
-					Company: deviceData.Company,
-					Task: deviceData.Task
-				},
-				update: {
-					Status: 'InQueue',
-					User: deviceData.User,
-					Note: deviceData.Note,
-					Company: deviceData.Company,
-					Task: deviceData.Task
-				}
-			});
-		}
+		let check = false;
+		options.forEach((option) => {
+			if (option == deviceData.Status) check = true;
+		});
+
+		let status = 'InQueue';
+
+		if (check && deviceData.Status != null && deviceData.Status != undefined)
+			status = deviceData.Status;
+
+		result = await prisma.device.upsert({
+			where: {
+				SerialNumber: deviceData.SerialNumber
+			},
+			create: {
+				SerialNumber: deviceData.SerialNumber,
+				Status: status,
+				User: deviceData.User,
+				Note: deviceData.Note,
+				Company: deviceData.Company,
+				Task: deviceData.Task
+			},
+			update: {
+				Status: status,
+				User: deviceData.User,
+				Note: deviceData.Note,
+				Company: deviceData.Company,
+				Task: deviceData.Task
+			}
+		});
 	} catch (e) {
-		log.error(e);
+		log.error(`Update device: ${e}`);
 		return false;
 	}
 
@@ -117,7 +100,7 @@ export async function getListOfDeviceId(status: string) {
 	});
 
 	const list: number[] = new Array<number>();
-	result.forEach((element) => {
+	result.forEach((element: { Id: number }) => {
 		list.push(element.Id);
 	});
 
