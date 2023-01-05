@@ -37,3 +37,11 @@ model User {
     Admin        Boolean   @default(false)
     Image        String?
 }
+
+model Log {
+    Id        Int      @id @default(autoincrement())
+    CreatedAt DateTime @default(now())
+    Level     String
+    Where     String
+    Message   String
+}
