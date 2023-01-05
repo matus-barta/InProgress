@@ -13,7 +13,7 @@ export const GET = (async (event) => {
 		log.warn(`${where}/[slug]`, `Parse error - did not get number`);
 		return new Response('Provide number', { status: 400 });
 	}
-	log.info(`${where}/[slug]/${id}`, `Got good req`);
+	log.info(`${where}/${id}`, `Got good req`);
 
 	const res = await getDeviceData(id);
 
