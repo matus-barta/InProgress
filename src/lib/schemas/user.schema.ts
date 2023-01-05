@@ -1,4 +1,4 @@
-import { boolean, object, string } from 'zod';
+import { boolean, date, object, string } from 'zod';
 import type { TypeOf } from 'zod';
 
 export const UserSchema = object({
@@ -7,7 +7,10 @@ export const UserSchema = object({
 	AccessToken: string().optional(),
 	SessionId: string().optional(),
 	Allowed: boolean(),
-	Admin: boolean()
+	Admin: boolean(),
+	Image: string().optional(),
+	LastLoginAt: date().optional(),
+	LastAccessAt: date().optional()
 });
 
 export type UserSchema = TypeOf<typeof UserSchema>;

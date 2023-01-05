@@ -13,7 +13,8 @@ export async function getUserInfoFromSessionId(sessionId: string): Promise<UserS
 			AccessToken: true,
 			SessionId: true,
 			Allowed: true,
-			Admin: true
+			Admin: true,
+			Image: true
 		}
 	});
 
@@ -32,7 +33,8 @@ export async function getUserInfoFromUsername(username: string): Promise<UserSch
 			AccessToken: true,
 			SessionId: true,
 			Allowed: true,
-			Admin: true
+			Admin: true,
+			Image: true
 		}
 	});
 
@@ -49,16 +51,17 @@ export async function updateUser(user: UserSchema): Promise<boolean> {
 			data: {
 				SessionId: user.SessionId,
 				AccessToken: user.AccessToken,
-				Name: user.Name
+				Name: user.Name,
+				Image: user.Image
 			}
 		});
 
 		if (result != null && result.Username != user.Username) {
-			log.error(`setSessionId: Something got wrong - result Username != input username`);
+			log.error(`updateUser: Something got wrong - result Username != input username`);
 			return false;
 		}
 	} catch (e) {
-		log.error(`setSessionId: ${e}`);
+		log.error(`updateUser: ${e}`);
 		return false;
 	}
 	return true;
@@ -90,4 +93,48 @@ export async function checkIfAdmin(user: UserSchema): Promise<boolean> {
 
 	if (result != null) return result.Admin;
 	return false;
+}
+
+export async function updateLoginDate(user: UserSchema): Promise<boolean> {
+	try {
+		const result = await prisma.user.update({
+			where: {
+				Username: user.Username
+			},
+			data: {
+				LastLoginAt: new Date(Date.now()).toISOString()
+			}
+		});
+
+		if (result != null && result.Username != user.Username) {
+			log.error(`updateLoginDate: Something got wrong - result Username != input username`);
+			return false;
+		}
+	} catch (e) {
+		log.error(`updateLoginDate: ${e}`);
+		return false;
+	}
+	return true;
+}
+
+export async function updateAccessDate(user: UserSchema): Promise<boolean> {
+	try {
+		const result = await prisma.user.update({
+			where: {
+				Username: user.Username
+			},
+			data: {
+				LastAccessAt: new Date(Date.now()).toISOString()
+			}
+		});
+
+		if (result != null && result.Username != user.Username) {
+			log.error(`updateLoginDate: Something got wrong - result Username != input username`);
+			return false;
+		}
+	} catch (e) {
+		log.error(`updateLoginDate: ${e}`);
+		return false;
+	}
+	return true;
 }

@@ -1,8 +1,12 @@
 import * as msal from '@azure/msal-node';
-import type { PageServerLoad } from './$types';
+import type { PageServerLoad, RequestEvent } from './$types';
 import { url, clientId, authority, clientSecret } from '$lib/server/utils/config';
 import log from '$lib/server/utils/logger';
-import { getUserInfoFromUsername, updateUser } from '$lib/server/handlers/user.handler';
+import {
+	getUserInfoFromUsername,
+	updateLoginDate,
+	updateUser
+} from '$lib/server/handlers/user.handler';
 import type { UserSchema } from '$lib/schemas/user.schema';
 import { generateSessionId } from '$lib/server/utils/session';
 
@@ -51,10 +55,9 @@ export const load = (async (event) => {
 
 		if (msalRes == undefined) return { redirect: returnError('MSAL getting token error') };
 
-		const sessionId = await checkIfExistsAndAllowedAndLogin(msalRes);
+		const sessionId = await checkIfExistsAndAllowedAndLogin(msalRes, event);
 		if (sessionId == '') redirect = returnError('User Not Allowed - Contact Admin to get access.');
 		else {
-			event.cookies.set('sessionid', sessionId);
 			redirect = '/dashboard';
 			log.info(`Login: saving sessionID: "${sessionId}" going to ${redirect}`);
 		}
@@ -65,7 +68,8 @@ export const load = (async (event) => {
 }) satisfies PageServerLoad;
 
 async function checkIfExistsAndAllowedAndLogin(
-	response: msal.AuthenticationResult
+	response: msal.AuthenticationResult,
+	event: RequestEvent
 ): Promise<string> {
 	let userInfo: UserSchema | null;
 	if (response.account?.username != undefined) {
@@ -80,9 +84,13 @@ async function checkIfExistsAndAllowedAndLogin(
 			userInfo.SessionId = sessionId;
 			userInfo.AccessToken = response.accessToken;
 			userInfo.Name = response.account.name;
-			if (await updateUser(userInfo)) return sessionId;
-			else {
-				log.error(`Login: Session id fail`);
+			userInfo.Image = await getUserImg(event, userInfo);
+			if (await updateUser(userInfo)) {
+				event.cookies.set('sessionid', sessionId);
+				if (!(await updateLoginDate(userInfo))) log.warn('Login: issue updating login date');
+				return sessionId;
+			} else {
+				log.error(`Login: Session id update fail`);
 				return '';
 			}
 		} else {
@@ -97,4 +105,21 @@ async function checkIfExistsAndAllowedAndLogin(
 
 function returnError(message: string) {
 	return `/error?error=${encodeURIComponent(message)}`;
+}
+
+async function getUserImg(event: RequestEvent, user: UserSchema) {
+	const imageBlob = await event
+		.fetch('https://graph.microsoft.com/v1.0/me/photos/48x48/$value', {
+			headers: {
+				Authorization: `Bearer ${user.AccessToken}`
+			}
+		})
+		.then((response) => {
+			return response.blob();
+		});
+
+	const imageBase64 = Buffer.from(await imageBlob.text()).toString('base64');
+	console.log(imageBase64);
+
+	return imageBase64;
 }

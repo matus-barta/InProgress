@@ -1,4 +1,4 @@
-import { getUserInfoFromSessionId } from '$lib/server/handlers/user.handler';
+import { getUserInfoFromSessionId, updateAccessDate } from '$lib/server/handlers/user.handler';
 import log from '$lib/server/utils/logger';
 import { redirect, type Handle } from '@sveltejs/kit';
 import { omit } from 'lodash';
@@ -16,8 +16,11 @@ export const handle = (async ({ event, resolve }) => {
 				throw redirect(307, '/login');
 			} else {
 				event.locals.user = userInfo;
+				if (!(await updateAccessDate(userInfo))) log.warn(`Hooks: Failed to update access Date`);
 				log.info(
-					`Hooks: known sessionid ${JSON.stringify(omit(event.locals.user, 'AccessToken'))}`
+					`Hooks: known sessionid ${JSON.stringify(
+						omit(event.locals.user, 'AccessToken', 'Image')
+					)}`
 				);
 			}
 		}
