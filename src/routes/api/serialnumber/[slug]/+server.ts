@@ -3,11 +3,13 @@ import log from '$lib/server/utils/logger';
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from '../$types';
 
+const where = 'GET: /api/serialnumber';
+
 export const GET = (async (event) => {
-	log.info(`GET Req: /api/serialnumber/${event.params.slug}`);
+	log.info(`${where}/${event.params.slug}`, `Got req`);
 
 	if (event.params.slug == '') {
-		log.warn(`GET Req: /api/serialnumber/${event.params.slug} - Empty slug`);
+		log.warn(`${where}/${event.params.slug}`, `Empty slug`);
 		return new Response('Empty slug', { status: 400 });
 	}
 

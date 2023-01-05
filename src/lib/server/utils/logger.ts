@@ -14,14 +14,14 @@ const log = pino({
 */
 
 class Logger {
-	info(message: any) {
-		console.log(`[${dayjs(Date.now()).format()}]: ${message}`);
+	info(where: string, message: string) {
+		console.log(`INFO: [${dayjs(Date.now()).format()}]: ${where} - ${message}`);
 	}
-	warn(message: any) {
-		console.warn(`[${dayjs(Date.now()).format()}]: ${message}`);
+	warn(where: string, message: string) {
+		console.warn(`WARN: [${dayjs(Date.now()).format()}]: ${where} - ${message}`);
 	}
-	error(message: any) {
-		console.error(`[${dayjs(Date.now()).format()}]: ${message}`);
+	error(where: string, message: string) {
+		console.error(`ERROR: [${dayjs(Date.now()).format()}]: ${where} - ${message}`);
 	}
 }
 

@@ -2,6 +2,8 @@ import type { UserSchema } from '$lib/schemas/user.schema';
 import prisma from '../db/prisma';
 import log from '../utils/logger';
 
+const where = 'User handler';
+
 export async function getUserInfoFromSessionId(sessionId: string): Promise<UserSchema | null> {
 	const result = await prisma.user.findUnique({
 		where: {
@@ -57,11 +59,14 @@ export async function updateUser(user: UserSchema): Promise<boolean> {
 		});
 
 		if (result != null && result.Username != user.Username) {
-			log.error(`updateUser: Something got wrong - result Username != input username`);
+			log.error(
+				`${where} - updateUser()`,
+				`Something got wrong - result Username != input username`
+			);
 			return false;
 		}
 	} catch (e) {
-		log.error(`updateUser: ${e}`);
+		log.error(`${where} - updateUser()`, `${e}`);
 		return false;
 	}
 	return true;
@@ -107,11 +112,14 @@ export async function updateLoginDate(user: UserSchema): Promise<boolean> {
 		});
 
 		if (result != null && result.Username != user.Username) {
-			log.error(`updateLoginDate: Something got wrong - result Username != input username`);
+			log.error(
+				`${where} - updateLoginDate()`,
+				`Something got wrong - result Username != input username`
+			);
 			return false;
 		}
 	} catch (e) {
-		log.error(`updateLoginDate: ${e}`);
+		log.error(`${where} - updateLoginDate()`, `${e}`);
 		return false;
 	}
 	return true;
@@ -129,11 +137,14 @@ export async function updateAccessDate(user: UserSchema): Promise<boolean> {
 		});
 
 		if (result != null && result.Username != user.Username) {
-			log.error(`updateLoginDate: Something got wrong - result Username != input username`);
+			log.error(
+				`${where} - updateAccessDate()`,
+				`Something got wrong - result Username != input username`
+			);
 			return false;
 		}
 	} catch (e) {
-		log.error(`updateLoginDate: ${e}`);
+		log.error(`${where} - updateAccessDate()`, `${e}`);
 		return false;
 	}
 	return true;

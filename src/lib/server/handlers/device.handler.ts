@@ -82,7 +82,7 @@ export async function updateDevice(deviceData: UpdateDevicesSchema): Promise<boo
 			}
 		});
 	} catch (e) {
-		log.error(`Update device: ${e}`);
+		log.error('Device Handler - updateDevice', `Update device: ${e}`);
 		return false;
 	}
 

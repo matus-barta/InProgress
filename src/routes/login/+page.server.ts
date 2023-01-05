@@ -10,6 +10,8 @@ import {
 import type { UserSchema } from '$lib/schemas/user.schema';
 import { generateSessionId } from '$lib/server/utils/session';
 
+const where = 'Login';
+
 const clientConfig = {
 	auth: {
 		clientId,
@@ -38,11 +40,11 @@ export const load = (async (event) => {
 	if (code == null) {
 		// get url to sign user in and consent to scopes needed for application
 		const res = await cca.getAuthCodeUrl(authCodeUrlParameters).catch((error) => {
-			log.error(error);
+			log.error(where, `getAuthCode() - ${error}`);
 		});
 
 		res != undefined ? (redirect = res) : (redirect = returnError('MSAL empty response'));
-		log.info(`Login: sending redirect ${redirect} to login`);
+		log.info(where, `sending redirect ${redirect} to login`);
 		return {
 			redirect
 		};
@@ -50,7 +52,7 @@ export const load = (async (event) => {
 		// acquire a token by exchanging the code
 		tokenRequest.code = code;
 		const msalRes = await cca.acquireTokenByCode(tokenRequest).catch((error) => {
-			log.error(`Login: MSAL token ${error}`);
+			log.error(where, `MSAL token error - ${error}`);
 		});
 
 		if (msalRes == undefined) return { redirect: returnError('MSAL getting token error') };
@@ -59,7 +61,7 @@ export const load = (async (event) => {
 		if (sessionId == '') redirect = returnError('User Not Allowed - Contact Admin to get access.');
 		else {
 			redirect = '/dashboard';
-			log.info(`Login: saving sessionID: "${sessionId}" going to ${redirect}`);
+			log.info(where, `Saving sessionID: "${sessionId}" going to ${redirect}`);
 		}
 		return {
 			redirect
@@ -74,10 +76,10 @@ async function checkIfExistsAndAllowedAndLogin(
 	let userInfo: UserSchema | null;
 	if (response.account?.username != undefined) {
 		userInfo = await getUserInfoFromUsername(response.account?.username);
-		log.info(`Login: Is logging in - ${response.account?.username}`);
+		log.info(where, `Is logging in - ${response.account?.username}`);
 
 		if (userInfo == null) {
-			log.warn(`Login: User does not exist - ${response.account?.username}`);
+			log.warn(where, `User does not exist - ${response.account?.username}`);
 			return '';
 		} else if (userInfo.Allowed) {
 			const sessionId = generateSessionId();
@@ -87,18 +89,18 @@ async function checkIfExistsAndAllowedAndLogin(
 			userInfo.Image = await getUserImg(event, userInfo);
 			if (await updateUser(userInfo)) {
 				event.cookies.set('sessionid', sessionId);
-				if (!(await updateLoginDate(userInfo))) log.warn('Login: issue updating login date');
+				if (!(await updateLoginDate(userInfo))) log.warn(where, 'Issue updating login date');
 				return sessionId;
 			} else {
-				log.error(`Login: Session id update fail`);
+				log.error(where, `Session id update fail`);
 				return '';
 			}
 		} else {
-			log.warn(`Login: Not allowed - ${userInfo.Username}`);
+			log.warn(where, `Not allowed - ${userInfo.Username}`);
 			return '';
 		}
 	} else {
-		log.error(`Login: Got Undefined account info`);
+		log.error(where, `Got Undefined account info`);
 		return '';
 	}
 }

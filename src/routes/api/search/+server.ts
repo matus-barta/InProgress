@@ -3,15 +3,17 @@ import log from '$lib/server/utils/logger';
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from '../$types';
 
+const where = 'GET: /api/search';
+
 export const GET = (async ({ url }) => {
 	const q = url.searchParams.get('q');
-	log.info(`GET Req: /api/search?q=${q}`);
+	log.info(`${where}?q=${q}`, `Got req`);
 
 	if (q != null && q != undefined && q != '') {
 		try {
 			return json(await search(q));
 		} catch (e) {
-			log.error(`GET Req: /api/search?q=${q}\n${e}`);
+			log.error(`${where}?q=${q}`, `${e}`);
 		}
 	}
 
