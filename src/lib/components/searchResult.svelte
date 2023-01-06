@@ -1,39 +1,49 @@
 <script lang="ts">
-    import type { CheckSerialNumber, ReadDeviceSchema } from "$lib/schemas/device.schema";
-	import { onMount } from "svelte";
-	import Device from "./device.svelte";
-	import DeviceForm from "./deviceForm.svelte";
-    import Loading from "./loading.svelte";
+	import type { CheckSerialNumber, ReadDeviceSchema } from '$lib/schemas/device.schema';
+	import { onMount } from 'svelte';
+	import Device from './device.svelte';
+	import DeviceForm from './deviceForm.svelte';
+	import Loading from './loading.svelte';
 
-    export let searchResult: CheckSerialNumber;
-    let editor = false;
+	export let searchResult: CheckSerialNumber;
+	let editor = false;
 
-    let device: ReadDeviceSchema;
-    let promise: Promise<void | Response>;
+	let device: ReadDeviceSchema;
+	let promise: Promise<void | Response>;
 
-    onMount(loadData);
+	onMount(loadData);
 
-    function loadData(){
-        promise = fetch(`/api/device/${searchResult.Id}`).then((res)=> res.json()).then((data)=>{
-            device = data;
-        }); 
-    }
+	function loadData() {
+		promise = fetch(`/api/device/${searchResult.Id}`)
+			.then((res) => res.json())
+			.then((data) => {
+				device = data;
+			});
+	}
 </script>
 
 <div class="flex flex-col rounded-md bg-dark-color-lighter p-4">
-    {#if editor}
-        <DeviceForm data={searchResult} formData={device} on:goBack={() => {
-            editor = false;
-            loadData();
-        }}/>
-    {:else}
-        {#await promise}
-            <Loading/>
-        {:then data}
-            {#if device != undefined && device != null}
-                <Device device={device}/>
-                <button on:click={() => { editor = true; }}>Edit</button>
-            {/if}
-        {/await}
-    {/if}
+	{#if editor}
+		<DeviceForm
+			data={searchResult}
+			formData={device}
+			on:goBack={() => {
+				editor = false;
+				loadData();
+			}}
+		/>
+	{:else}
+		{#await promise}
+			<Loading />
+		{:then data}
+			{#if device != undefined && device != null}
+				<Device {device} />
+				<button
+					on:click={() => {
+						editor = true;
+					}}>Edit</button
+				>
+			{/if}
+		{/await}
+	{/if}
 </div>
