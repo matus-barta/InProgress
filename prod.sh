@@ -1,9 +1,5 @@
 #!/bin/bash
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 FILE=.env
 if test -f "$FILE"; then
     echo "$FILE exists."
@@ -13,7 +9,7 @@ else
 fi
 
 git pull
-nvm use
+~/.nvm/nvm.sh use
 npm install
 npx prisma generate
 npm run build

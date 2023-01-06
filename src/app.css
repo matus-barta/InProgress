@@ -9,6 +9,9 @@ html {
 body {
 	@apply bg-darker-color;
 }
+h1 {
+	@apply uppercase font-bold text-xl;
+}
 
 button {
 	@apply bg-accent-2-color w-full tracking-tighter rounded-lg border-2 border-accent-2-color-lighter hover:bg-accent-2-color-lighter 

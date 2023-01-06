@@ -1,9 +1,13 @@
 <script lang="ts">
-  import "../../app.css";
-  import Button from "$lib/components/button.svelte"
+    import "../../app.css";
+    import Button from "$lib/components/button.svelte"
 
-  //import type { LayoutData } from './$types';
-  //export let data: LayoutData;
+    import type { LayoutData } from './$types';
+    export let data: LayoutData;
+
+    let userName = 'account';
+    if(data.userInfo.Name != '' && data.userInfo.Name != undefined) userName = data.userInfo.Name;
+
 </script>
 
 <div class="flex flex-col w-screen">
@@ -31,17 +35,23 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </Button>
+                {#if data.userInfo.Admin}
                 <Button link="/dashboard/admin" name="admin">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="inherit" stroke="inherit">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
                     </svg>
                 </Button>
+                {/if}
             </div>
         </div>
-        <Button link="/dashboard" name="account">
+        <Button link="/dashboard" name={userName}>
+            {#if data.userInfo.Image == undefined}
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="inherit" stroke="inherit">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
+            {:else}
+                <img class="rounded-full" src={data.userInfo.Image} alt="user's img"/>
+            {/if}
         </Button>
     </div>   
   <div class="flex flex-col w-screen items-center pt-24">

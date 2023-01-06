@@ -87,6 +87,7 @@ async function checkIfExistsAndAllowedAndLogin(
 			userInfo.AccessToken = response.accessToken;
 			userInfo.Name = response.account.name;
 			userInfo.Image = await getUserImg(event, userInfo);
+
 			if (await updateUser(userInfo)) {
 				event.cookies.set('sessionid', sessionId);
 				if (!(await updateLoginDate(userInfo))) log.warn(where, 'Issue updating login date');
@@ -110,18 +111,18 @@ function returnError(message: string) {
 }
 
 async function getUserImg(event: RequestEvent, user: UserSchema) {
-	const imageBlob = await event
+	const imageBase64 = await event
 		.fetch('https://graph.microsoft.com/v1.0/me/photos/48x48/$value', {
 			headers: {
 				Authorization: `Bearer ${user.AccessToken}`
 			}
 		})
-		.then((response) => {
-			return response.blob();
+		.then(async (response) => {
+			if (response.status == 200)
+				return `data:${response.headers.get('content-type')};base64,${Buffer.from(
+					await (await response.blob()).arrayBuffer()
+				).toString('base64')}`;
 		});
-
-	const imageBase64 = Buffer.from(await imageBlob.text()).toString('base64');
-	console.log(imageBase64);
 
 	return imageBase64;
 }

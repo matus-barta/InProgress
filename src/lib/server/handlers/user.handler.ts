@@ -149,3 +149,18 @@ export async function updateAccessDate(user: UserSchema): Promise<boolean> {
 	}
 	return true;
 }
+
+export async function getAllUsers(): Promise<null | UserSchema[]> {
+	const result = await prisma.user.findMany({
+		select: {
+			Name: true,
+			Username: true,
+			Allowed: true,
+			Admin: true
+		}
+	});
+
+	if (result == null) return null;
+
+	return result as UserSchema[];
+}
