@@ -8,6 +8,7 @@ else
 fi
 
 git pull
+nvm use
 npm install
 npx prisma generate
 npm run build
