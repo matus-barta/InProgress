@@ -1,7 +1,8 @@
 import { getUserInfoFromSessionId, updateAccessDate } from '$lib/server/handlers/user.handler';
 import log from '$lib/server/utils/logger';
 import { redirect, type Handle } from '@sveltejs/kit';
-import { omit } from 'lodash';
+import pkg from 'lodash';
+const { omit } = pkg;
 
 const where = 'Hooks';
 
