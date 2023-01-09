@@ -4,10 +4,11 @@ import log from '$lib/server/utils/logger';
 import { json } from '@sveltejs/kit';
 import type { RequestEvent, RequestHandler } from './$types';
 
-const where = '/api/user';
+const where = '/api/admin/user';
 
+//list all users
 export const GET = (async () => {
-	log.info(`GET: ${where}`, `Got req`);
+	log.info(`GET: ${where}`, `List all users`);
 
 	try {
 		return json(await getAllUsers());
@@ -17,8 +18,9 @@ export const GET = (async () => {
 	}
 }) satisfies RequestHandler;
 
+//create new user
 export const PUT = (async (event: RequestEvent) => {
-	log.info(`PUT: ${where}`, `Got req`);
+	log.info(`PUT: ${where}`, `Create user`);
 
 	try {
 		const req = (await event.request.json()) as UserSchema;
@@ -31,8 +33,9 @@ export const PUT = (async (event: RequestEvent) => {
 	}
 }) satisfies RequestHandler;
 
+//update user
 export const POST = (async (event: RequestEvent) => {
-	log.info(`POST: ${where}`, `Got req`);
+	log.info(`POST: ${where}`, `Update user`);
 
 	try {
 		const req = (await event.request.json()) as UserSchema;
