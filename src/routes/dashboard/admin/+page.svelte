@@ -1,12 +1,14 @@
 <script lang="ts">
-	import type { PageData } from './$types';
-	export let data: PageData;
+	import Logs from '$lib/components/settings/logs.svelte';
+	import SettingsCard from '$lib/components/settings/settingsCard.svelte';
+	import UserManagement from '$lib/components/settings/userManagement.svelte';
 </script>
 
 <div class="flex flex-col gap-5">
-	<h1>User management</h1>
-	{#each data.allUsers as user}
-		<p>{user.Name}</p>
-		<p>{user.Username}</p>
-	{/each}
+	<SettingsCard header="User management">
+		<UserManagement />
+	</SettingsCard>
+	<SettingsCard header="Logs">
+		<Logs />
+	</SettingsCard>
 </div>
