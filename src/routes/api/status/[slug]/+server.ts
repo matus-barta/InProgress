@@ -1,5 +1,5 @@
 import log from '$lib/server/utils/logger';
-import type { RequestHandler } from '../$types';
+import type { RequestHandler } from './$types';
 import { json } from '@sveltejs/kit';
 import { getListOfDeviceId } from '$lib/server/handlers/device.handler';
 import { options } from '$lib/options';

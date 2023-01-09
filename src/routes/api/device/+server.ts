@@ -1,5 +1,5 @@
 import log from '$lib/server/utils/logger';
-import type { RequestHandler } from '../$types';
+import type { RequestHandler } from './$types';
 import { updateDevicesSchema, type UpdateDevicesSchema } from '$lib/schemas/device.schema';
 import { updateDevice } from '$lib/server/handlers/device.handler';
 

@@ -1,7 +1,7 @@
 import { search } from '$lib/server/handlers/search.handler';
 import log from '$lib/server/utils/logger';
 import { json } from '@sveltejs/kit';
-import type { RequestHandler } from '../$types';
+import type { RequestHandler } from './$types';
 
 const where = 'GET: /api/search';
 
