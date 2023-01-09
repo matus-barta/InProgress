@@ -10,7 +10,7 @@
 >
 	<img src="logo.svg" alt="logo" class="w-80" />
 	<p>{data.errorMessage}</p>
-	<a href="/login" class="max-w-lg button">
+	<a href="/dashboard" class="max-w-lg button">
 		<div
 			class="flex flex-row justify-center items-center w-full h-full gap-2 hover:bg-accent-2-color-lighter "
 		>
