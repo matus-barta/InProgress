@@ -15,7 +15,8 @@ h1 {
 
 button {
 	@apply bg-accent-2-color w-full tracking-tighter rounded-lg border-2 border-accent-2-color-lighter hover:bg-accent-2-color-lighter 
-		uppercase p-2 font-light text-sm my-2 focus:outline-none shadow-lg;
+		uppercase p-2 font-light text-sm my-2 focus:outline-none shadow-lg disabled:border-dark-color-even-more-lighter
+		disabled:bg-dark-color-more-lighter disabled:text-dark-color-2-even-more-lighter;
 }
 
 select {
