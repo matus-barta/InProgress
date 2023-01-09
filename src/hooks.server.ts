@@ -6,8 +6,23 @@ const { omit } = pkg;
 
 const where = 'Hooks';
 
+const privateUrls = [
+	'/dashboard',
+	'/api/device',
+	'/api/search',
+	'/api/serialnumber',
+	'/api/status',
+	'/api/user'
+];
+
 export const handle = (async ({ event, resolve }) => {
-	if (event.url.pathname.startsWith('/dashboard')) {
+	let check = false;
+
+	privateUrls.forEach((privateUrl) => {
+		if (event.url.pathname.startsWith(privateUrl)) check = true;
+	});
+
+	if (check) {
 		const sessionId = event.cookies.get('sessionid');
 		if (sessionId == undefined) {
 			log.info(where, 'undefined cookie');
@@ -20,7 +35,7 @@ export const handle = (async ({ event, resolve }) => {
 			} else {
 				event.locals.user = omit(userInfo, 'AccessToken');
 				if (!(await updateAccessDate(userInfo))) log.warn(where, `Failed to update access Date`);
-				log.info(where, `known sessionid ${JSON.stringify(omit(event.locals.user, 'Image'))}`);
+				log.info(where, `known sessionid - User:${event.locals.user.Username}`);
 			}
 		}
 	}
