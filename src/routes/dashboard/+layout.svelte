@@ -97,7 +97,7 @@
 				{/if}
 			</div>
 		</div>
-		<Button link="/dashboard" name={userName}>
+		<Button link="/dashboard" name={userName} isUser={true}>
 			{#if data.userInfo.Image == undefined}
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
