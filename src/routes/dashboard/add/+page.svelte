@@ -1,5 +1,5 @@
 <script lang="ts">
-	import DeviceForm from '$lib/components/deviceForm.svelte';
+	import DeviceForm from '$lib/components/device/deviceForm.svelte';
 	import type { CheckSerialNumber } from '$lib/schemas/device.schema';
 
 	let device: CheckSerialNumber = { Id: 0, SerialNumber: '' };

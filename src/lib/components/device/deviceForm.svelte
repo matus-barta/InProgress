@@ -5,7 +5,7 @@
 		UpdateDevicesSchema
 	} from '$lib/schemas/device.schema';
 	import { createEventDispatcher } from 'svelte';
-	import Loading from '$lib/components/loading.svelte';
+	import Loading from '$lib/components/utils/loading.svelte';
 	import { options } from '$lib/options';
 
 	const dispatch = createEventDispatcher();

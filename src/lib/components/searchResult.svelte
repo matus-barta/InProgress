@@ -2,8 +2,8 @@
 	import type { CheckSerialNumber, ReadDeviceSchema } from '$lib/schemas/device.schema';
 	import { onMount } from 'svelte';
 	import Device from './device.svelte';
-	import DeviceForm from './deviceForm.svelte';
-	import Loading from './loading.svelte';
+	import DeviceForm from './device/deviceForm.svelte';
+	import Loading from './utils/loading.svelte';
 
 	export let searchResult: CheckSerialNumber;
 	let editor = false;

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher, onMount } from 'svelte';
-	import Loading from '$lib/components/loading.svelte';
+	import Loading from '$lib/components/utils/loading.svelte';
 	import Device from '$lib/components/device.svelte';
 	export let name: string;
 

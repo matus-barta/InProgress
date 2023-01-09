@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ReadDeviceSchema } from '$lib/schemas/device.schema';
-	import Loading from '$lib/components/loading.svelte';
-	import Time from '$lib/components/time.svelte';
+	import Loading from '$lib/components/utils/loading.svelte';
+	import Time from '$lib/components/utils/time.svelte';
 	import { createEventDispatcher, onMount } from 'svelte';
 	import { options } from '$lib/options';
 

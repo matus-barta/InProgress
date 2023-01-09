@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Scanner from '$lib/components/scanner.svelte';
-	import DeviceForm from '$lib/components/deviceForm.svelte';
+	import DeviceForm from '$lib/components/device/deviceForm.svelte';
 	import type { CheckSerialNumber } from '$lib/schemas/device.schema';
-	import Loading from '$lib/components/loading.svelte';
+	import Loading from '$lib/components/utils/loading.svelte';
 
 	let serialNumber: string;
 	let promise: Promise<void | Response>;

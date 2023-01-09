@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { CheckSerialNumber } from '$lib/schemas/device.schema';
-	import VirtualList from '$lib/components/virtualList.svelte';
+	import VirtualList from '$lib/components/utils/virtualList.svelte';
 	import SearchResult from '$lib/components/searchResult.svelte';
-	import Loading from '$lib/components/loading.svelte';
+	import Loading from '$lib/components/utils/loading.svelte';
 
 	let result: CheckSerialNumber[];
 	let query: string;
@@ -37,9 +37,11 @@
 		{#await promise}
 			<Loading />
 		{:then data}
-			<VirtualList items={result} let:item>
-				<SearchResult searchResult={item} />
-			</VirtualList>
+			<div class="flex flex-col gap-5">
+				<VirtualList items={result} let:item>
+					<SearchResult searchResult={item} />
+				</VirtualList>
+			</div>
 		{/await}
 	{/if}
 </div>

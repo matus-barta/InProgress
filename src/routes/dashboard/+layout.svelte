@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../../app.css';
-	import Button from '$lib/components/button.svelte';
+	import Button from '$lib/components/utils/button.svelte';
 
 	import type { LayoutData } from './$types';
 	export let data: LayoutData;
