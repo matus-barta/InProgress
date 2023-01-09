@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { CheckSerialNumber, ReadDeviceSchema } from '$lib/schemas/device.schema';
 	import { onMount } from 'svelte';
-	import Device from './device.svelte';
-	import DeviceForm from './device/deviceForm.svelte';
-	import Loading from './utils/loading.svelte';
+	import Device from '$lib/components/device/device.svelte';
+	import DeviceForm from '$lib/components/device/deviceForm.svelte';
+	import Loading from '$lib/components/utils/loading.svelte';
 
 	export let searchResult: CheckSerialNumber;
 	let editor = false;
