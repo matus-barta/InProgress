@@ -54,7 +54,9 @@ export async function updateUser(user: UserSchema): Promise<boolean> {
 				SessionId: user.SessionId,
 				AccessToken: user.AccessToken,
 				Name: user.Name,
-				Image: user.Image
+				Image: user.Image,
+				Admin: user.Admin,
+				Allowed: user.Allowed
 			}
 		});
 
@@ -155,6 +157,8 @@ export async function getAllUsers(): Promise<null | UserSchema[]> {
 		select: {
 			Name: true,
 			Username: true,
+			LastLoginAt: true,
+			LastAccessAt: true,
 			Allowed: true,
 			Admin: true
 		}
@@ -163,4 +167,28 @@ export async function getAllUsers(): Promise<null | UserSchema[]> {
 	if (result == null) return null;
 
 	return result as UserSchema[];
+}
+
+export async function createUser(user: UserSchema): Promise<boolean> {
+	try {
+		const result = await prisma.user.create({
+			data: {
+				Username: user.Username,
+				Admin: user.Admin,
+				Allowed: user.Allowed
+			}
+		});
+
+		if (result != null && result.Username != user.Username) {
+			log.error(
+				`${where} - createUser()`,
+				`Something got wrong - result Username != input username`
+			);
+			return false;
+		}
+	} catch (e) {
+		log.error(`${where} - createUser()`, `${e}`);
+		return false;
+	}
+	return true;
 }
