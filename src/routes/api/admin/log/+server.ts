@@ -16,7 +16,7 @@ export const GET = (async (event) => {
 	if (level == null) level = undefined;
 
 	if (limit != null && limit != '') {
-		if (limit == 'all') {
+		if (limit.toLowerCase() == 'all') {
 			result = await getLogs(undefined, level);
 		} else {
 			try {

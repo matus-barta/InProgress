@@ -16,7 +16,7 @@ export async function logToDB(level: string, where: string, message: string) {
 	}
 }
 
-export async function getLogs(limit?: number, level?: string) {
+export async function getLogs(limit: number | undefined, level: string | undefined) {
 	let result;
 	try {
 		result = await prisma.log.findMany({
