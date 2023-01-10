@@ -44,7 +44,7 @@ export const load = (async (event) => {
 		});
 
 		res != undefined ? (redirect = res) : (redirect = returnError('MSAL empty response'));
-		log.info(where, `sending redirect ${redirect} to login`);
+		log.info(where, `sending redirect link to login`);
 		return {
 			redirect
 		};
