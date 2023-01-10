@@ -9,7 +9,7 @@
 	if (data.userInfo.Name != '' && data.userInfo.Name != undefined) userName = data.userInfo.Name;
 </script>
 
-<div class="flex flex-col w-screen">
+<div class="flex flex-col w-auto">
 	<div class="flex flex-row justify-between h-16 w-full bg-accent-color shadow-lg fixed">
 		<div class="flex flex-row">
 			<Button link="/dashboard" name="home">
@@ -117,7 +117,7 @@
 			{/if}
 		</Button>
 	</div>
-	<div class="flex flex-col w-screen items-center pt-24">
+	<div class="flex flex-col items-center pt-24">
 		<slot />
 	</div>
 </div>
