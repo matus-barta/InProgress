@@ -48,7 +48,7 @@
 	{#await loadUsersPromise}
 		<Loading />
 	{:then data}
-		<div class="table w-fit">
+		<div class="table w-full">
 			<div class="table-header-group font-semibold">
 				<div class="table-cell text-center">Name</div>
 				<div class="table-cell text-center">Email</div>
