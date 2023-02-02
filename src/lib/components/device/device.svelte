@@ -74,7 +74,7 @@
 			<p class="text-sm pl-1">{device.Company}</p>
 			<p class="text-sm pl-1">{device.Task}</p>
 			<div
-				class="text-xs font-mono tracking-normal rounded border border-dark-color-even-more-lighter w-full p-1 mt-1 h-20 overflow-y-scroll"
+				class="text-xs font-mono tracking-normal rounded border border-dark-color-even-more-lighter w-full p-1 mt-1 h-20 overflow-y-auto"
 			>
 				{device.Note}
 			</div>

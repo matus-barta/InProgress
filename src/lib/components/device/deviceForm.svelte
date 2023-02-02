@@ -45,10 +45,16 @@
 			});
 	}
 
+	function isValid() {
+		/////// continue <<<<<<<<<<<< SN validation?????
+		return true;
+	}
+
 	let hideResult = true;
 	let finalResult: Response;
 
 	function processData() {
+		if (!isValid()) return; /////// continue <<<<<<<<<<<<
 		try {
 			promise = fetch(`/api/device`, {
 				method: 'POST',

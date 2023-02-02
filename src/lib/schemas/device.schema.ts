@@ -12,7 +12,7 @@ export const readDeviceSchema = object({
 	Id: number({ required_error: 'Id is missing' }),
 	CreatedAt: date({ required_error: 'CreatedAt is missing' }),
 	UpdatedAt: date({ required_error: 'UpdatedAt is missing' }),
-	SerialNumber: string({ required_error: 'SerialNumber is missing' }),
+	SerialNumber: string({ required_error: 'SerialNumber is missing' }).min(1),
 	Status: string({ required_error: 'Status is missing' }),
 	User: string().nullable().optional(),
 	Note: string().nullable().optional(),

@@ -23,7 +23,7 @@
 	}
 </script>
 
-<div class="flex flex-col w-full py-12 max-w-xl p-5">
+<div class="flex flex-col w-full max-w-xl px-5">
 	<label for="search">Search</label>
 	<input
 		id="search"
