@@ -10,3 +10,7 @@ Proof of concept, UI inspired by Trello.
 - Html5-qrcode
 - TypeScript
 - Zod
+
+## Here is the look of dashboard
+
+![Screenshot of the dashboard](inprogress.png)
